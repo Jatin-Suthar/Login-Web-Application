@@ -5,7 +5,6 @@ import jakarta.servlet.*;
 import jakarta.servlet.annotation.*;
 import jakarta.servlet.http.*;
 import java.util.*;
-import java.io.*;
 import com.simplewebapplication.conn.*;
 import com.simplewebapplicaton.utils.*;
 import java.sql.*;
@@ -13,7 +12,7 @@ import java.sql.*;
 /**
  * Servlet Filter implementation class JDBCFilter
  */
-@WebFilter("/JDBCFilter")
+@WebFilter(filterName = "jdbcFilter", urlPatterns = { "/*" })
 public class JDBCFilter implements Filter {
 
     /**
@@ -69,7 +68,7 @@ public class JDBCFilter implements Filter {
 				conn = ConnectionsUtil.getConnection();
 				conn.setAutoCommit(false);
 				
-//				MyUtils.storeConnection(request, conn);
+				MyUtils.storeConnection(request, conn);
 
 				chain.doFilter(request, response);
 
@@ -77,7 +76,7 @@ public class JDBCFilter implements Filter {
 			}catch(Exception e) {
 				e.printStackTrace();
 				ConnectionsUtil.rollbackQuietly(conn);
-				throw new ServletException(); 
+//				throw new ServletException();
 			}finally {
 				ConnectionsUtil.closeQuietly(conn);
 			}

@@ -1,0 +1,44 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Product List</title>
+</head>
+<body>
+	<jsp:include page="header.jsp"></jsp:include>
+    <jsp:include page="menu.jsp"></jsp:include>
+
+    <h3>Product List</h3>
+
+    <p style="color: red;">${errorString}</p>
+
+    <table border="1" cellpadding="5" cellspacing="1" >
+       <tr>
+          <th>Code</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Edit</th>
+          <th>Delete</th>
+       </tr>
+       <c:forEach items="${productList}" var="product">
+          <tr>
+             <td>${product.code}</td>
+             <td>${product.name}</td>
+             <td>${product.price}</td>
+             <td>
+                <a href="editProduct?code=${product.code}">Edit</a>
+             </td>
+             <td>
+                <a href="deleteProduct?code=${product.code}">Delete</a>
+             </td>
+          </tr>
+       </c:forEach>
+    </table>
+
+    <a href="createProduct" >Create Product</a>
+
+    <jsp:include page="footer.jsp"></jsp:include>
+</body>
+</html>
